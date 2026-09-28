@@ -33,6 +33,9 @@
 - 로컬라이제이션 대응
 - 릴리스 가능한 데모 범위 정의
 
+**개발기간**
+2026년 6월 ~ 진행중
+
 ## 기술 스택
 
 - 엔진: Unity 6
@@ -108,5 +111,31 @@ Runtime Definition
 - [`TableBackedBattleTokenDefinitionProvider.cs`](Data/TableBackedBattleTokenDefinitionProvider.cs) — Table data → 런 선언 변환
 - [`RuneData.cs`](Data/RuneData.cs) — Luban generated row 예시
 
+## AI 어시스트 개발 워크플로우
 
+이 ㅍ프로젝트에서는 GPT와 Codex CLI를 개발 보조 도구로 사용했습니다.
 
+구현 요청을 바로 Agent에 전달하기 보다는 먼저 요구사항와 현재 코드 구조를 검토하고,
+변경 범위, 보존해야할 기존 동락, 예외 상황, 입력과 수명주기, 검증 기준을 정리한 뒤
+Codex 실행 프롬프트로 변환해 작업했습니다.
+
+특히 기존 기능을 확장하거나 오류를 수정할 때는
+새 기능의 구현 자체뿐 아니라 기존 시스템의 회귀와 잘못된 상태를 검출할 수 있는
+검증 항목까지 함께 정의하려고 했습니다.
+
+아래는 실제 개발 과정에서 사용한 Codex 실행 프롬프트를
+일부 공개용으로 정리한 예시입니다.
+
+### 전투 진입 연출
+
+기존 세션/전투 Lifetime과 화면 전환 구조를 유지하면서
+JRPG 스타일의 전투 진입 연출을 추가한 작업입니다.
+
+[프롬프트](AI_Workflow/01_battle_entry_presentation.md)
+
+### 버그 조사 & 수정
+
+전투 보상에서 유물 아이템 획득 중 발생한 오류를 대상으로
+원인을 미리 단정하지 않고 실제 작업 이력을 추적하도록 구성한 작업입니다.
+
+[프롬프트](AI_Workflow/02_relic_acquisition_recovery.md)
